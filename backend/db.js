@@ -13,8 +13,20 @@ await mongoose.connect(mongoURI,{useNewUrlParser: true},(err,result)=>{
 
         const fetched_data =  mongoose.connection.db.collection("food_items");
       fetched_data.find({}).toArray(function( err, data){
-        if(err) console.log(err);
-        else console.log();
+
+        const food_Category =  mongoose.connection.db.collection("food_Category");
+        food_Category.find({}).toArray(function (err,catData){
+          if(err) console.log(err);
+          else {
+              global.food_items = data;
+              global.food_Category = catData;
+          }
+        })
+        // if(err) console.log(err);
+        // else {
+        //   global.food_items = data;
+          // console.log(global.food_items)
+        // };
       })
     }
 
